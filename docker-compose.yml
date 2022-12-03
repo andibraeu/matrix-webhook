@@ -1,7 +1,7 @@
 version: '3'
 
 networks:
-  web:
+  matrix-web:
     external: true
 
 services:
@@ -12,7 +12,6 @@ services:
     env_file:
       - .env
     networks:
-      - web
-    labels:
-      traefik.enable: "true"
-      traefik.http.routers.matrix-webhook.rule: "Host(`${CHATONS_SERVICE:-matrixwebhook}.${CHATONS_DOMAIN:-localhost}`)"
+      - matrix-web
+    ports:
+      - "127.0.0.1:${HTTP_PORT}:4785"
